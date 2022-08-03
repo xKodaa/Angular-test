@@ -1,0 +1,65 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+    max-width: 100%;
+}
+body {
+    scroll-behavior: smooth;
+    font-family: Segoe UI, SegoeUI, Arial, sans-serif
+}
+h1 {
+    text-align: center;
+    font-family: Arial;
+}
+
+#content_view{
+    list-style-type: none;
+    padding: 0;
+}
+#content_view ul{
+    padding-inline-start: 0;
+}
+#content_view li{
+    display: inline;
+    padding-right: 10px;
+    cursor: pointer;
+}
+#content_view li a{
+    border: 1px black solid;
+    border-radius: 10px;
+    background-color: burlywood;
+    padding: 10px;
+}
+
+#wrap{
+    padding: 15px;
+    background-color: lightgray;
+    border-radius: 20px;
+    max-width: 30%;
+}
+
+.form-control{
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 98%;
+    margin-bottom: 10px;
+}
+.form-control:focus{
+    background-color: #F5F5DC;
+}
+.form-group{
+    overflow: hidden;
+}
+.btn_btn-primary{
+    cursor: pointer;
+    padding: 10px;
+}
+.btn_btn-primary:hover{
+    background-color: #F5F5DC;
+}
+
+.alert-danger{
+    color: red;
+}
+#evenRow{
+    color: blue;
+}

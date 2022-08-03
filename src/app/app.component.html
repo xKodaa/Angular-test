@@ -1,0 +1,93 @@
+<h1>My first angular project</h1>
+<hr>
+<!--IF PODMÍNKA PRO VYHODNOCENÍ KTERÝ TEMPLATE SE MÁ ZOBRAZIT-->
+<div *ngIf="courses.length > 0; then coursesList else noCourses"></div>
+
+<!--LOADING A LIST OF COURSES FROM AN ARRAY IN app.module.ts AS A LIST-->
+<ng-template #coursesList>
+  List of Courses:
+  <div>
+    <ul>
+      <li *ngFor="let course of courses">
+        {{course}} <!--- {{ }} => data binding -->
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #noCourses>
+  No courses yet!
+</ng-template>
+
+<!--HIDDEN ATRIBUTE BINDING (hidden pokud platí podmínka)-->
+<div [hidden]="courses.length == 0">
+  Display me when there is at least 1 course :-)
+  <hr>
+</div>
+
+<div [hidden]="courses.length > 0">
+  Display me when there are no courses :-(
+  <hr>
+</div>
+
+
+<!--SWITCH CASES:-->
+<ul id="content_view">
+  <!--EVEN (click) PERFORMS AN ACTION WHEN THE ELEMENT IS CLICKED ON-->
+  <li [class.active]="viewMode == 'default'"><a (click)="viewMode = 'default'">Default content</a></li>
+  <li [class.active]="viewMode == 'map'"><a (click)="viewMode = 'map'">List</a></li>
+  <li [class.active]="viewMode == 'form'"><a (click)="viewMode = 'form'">Form</a></li>
+</ul>
+
+<div [ngSwitch]="viewMode">
+  <!-------------------------------------------------------------SWITCH CASE: DEFAULT------------------------------------------------------------->
+  <div *ngSwitchDefault>This is default content
+    <hr>
+    <!--PASSING A VALUE WITH TWO-WAY BINDING-->
+    <div>
+      E-mail address:
+      <input [(ngModel)]="email" (keyup.enter)="onKeyUp()"/>
+      <hr>
+    </div>
+  </div>
+  <!---------------------------------------------------------------SWITCH CASE: LIST-------------------------------------------------------------->
+  <div *ngSwitchCase="'map'">
+    <!--ADDING ITEMS TO THE LIST-->
+    <div>
+      List of detailed courses:
+      <button (click)="onAdd()">Add a new course</button>
+      <ul>
+        <li *ngFor="let detailedCourse of detailedCourses; index as i; even as isEven">
+          {{ i }} - {{detailedCourse.name}} <span id="evenRow" *ngIf="isEven">(even row)</span>
+          <button (click)="onChange(detailedCourse)">Update</button> <!--PASSING AN OBJECT TO THE METHOD WHEN CLICKED-->
+          <button (click)="resetText(detailedCourse)">Reset</button> <!--RESETTING AN UPDATE STATUS-->
+        </li>
+      </ul>
+      <hr>
+    </div>
+  </div>
+  <!---------------------------------------------------------------SWITCH CASE: FORM-------------------------------------------------------------->
+  <div *ngSwitchCase="'form'"><!--BOOTSRAP FORM-->
+    <form>
+      <div id="wrap">
+        <div class="form-group">
+          <label for="firstName">First name</label> <br> 
+          <input required ngModel name="firstName" #firstName="ngModel" (change)="log(firstName)" id="firstName" type="text" class="form-control"  > 
+          <div class="alert-danger" *ngIf="firstName.touched && !firstName.valid">The first name is required</div>
+        </div>
+        <div class="form-group">
+          <label for="comment">Comment</label> <br>
+          <textarea ngModel name="comment" id="comment" cols="30" rows="10" class="form-control"> </textarea>  
+        </div>
+        <button class="btn_btn-primary">Submit</button>
+      </div>
+    </form>
+    <hr>
+  </div>
+</div>
+
+
+
+
+
+
